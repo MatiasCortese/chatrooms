@@ -12,6 +12,11 @@ app.use(cors());
 const roomCollection = firestore.collection("rooms");
 const userCollection = firestore.collection("users");
 
+app.get("/hola", (req, res) => {
+    res.json({
+        message: "hola desde el server"
+    })
+})
 
 // endpoint para crear un room y que nos devuelva su ID, 
 app.post("/rooms", (req, res) => {

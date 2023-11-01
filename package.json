@@ -34,6 +34,9 @@
     "util": "^0.12.5"
   },
   "scripts": {
-    "dev": "parcel serve ./src/index.html"
+    "dev": "parcel serve ./src/index.html",
+    "test": "ava",
+    "build": "tsc index.ts",
+    "start": "node index.js"
   }
 }

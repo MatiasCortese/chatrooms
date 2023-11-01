@@ -26,7 +26,7 @@ customElements.define("chat-page", class extends HTMLElement {
         this.addStyle();
         this.sendMessage();
         this.whoIsWhoChecker();
-        }, 2000)
+        }, 2100)
     };
     render(){
         this.innerHTML = `
@@ -35,6 +35,7 @@ customElements.define("chat-page", class extends HTMLElement {
                 <my-title>Chat</my-title>
                 <h3 class="roomdId">room id: ${this.roomId}</h3>
                 <div class="messages-container">
+                
                 ${this.messages.map((m) => {
                     return `<chat-box user="${m.nombre}" class="me">${m.message}</chat-box>`
                 }).join("")}
