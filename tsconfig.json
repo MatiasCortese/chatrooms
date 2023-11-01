@@ -3,7 +3,7 @@
         "target": "ESNext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "esModuleInterop": true,
+        "module": "CommonJS",
         "allowSyntheticDefaultImports": true,
     }
 }

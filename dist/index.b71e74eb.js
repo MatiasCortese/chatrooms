@@ -64516,7 +64516,7 @@ customElements.define("chat-page", class extends HTMLElement {
     sendMessage() {
         const enviarMessageEl = this.querySelector(".send-message");
         const messageInputEl = this.querySelector(".input-message");
-        enviarMessageEl.addEventListener("click", ()=>{
+        enviarMessageEl?.addEventListener("click", ()=>{
             if (messageInputEl.value == "") console.log("Introduzca un mensaje");
             else {
                 const message = {
