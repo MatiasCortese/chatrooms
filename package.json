@@ -36,7 +36,7 @@
   "scripts": {
     "dev": "parcel serve ./src/index.html",
     "test": "ava",
-    "build": "tsc backend/index.ts",
+    "build": "tsc src/index.ts",
     "start": "node index.js"
   }
 }
