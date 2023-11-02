@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as dotenv from "dotenv";
 import { firestore, rtdb } from "./db";
 import * as cors from "cors";
 import { nanoid } from "nanoid";
