@@ -38,9 +38,9 @@
     "dev:front": "parcel serve ./src/index.html",
     "dev:api": "nodemon --watch ./backend/index.ts --exec ts-node ./backend/index.ts",
     "test": "ava",
-    "build:be": "tsc -t esnext ./backend/index.ts",
+    "build:be": "tsc",
     "build:fe": "parcel build ./src/index.html --dist-dir ./dist",
     "build": "yarn build:be && yarn build:fe",
-    "start": "node index.js"
+    "start": "node ./dist/index.js"
   }
 }
