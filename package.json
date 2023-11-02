@@ -35,9 +35,12 @@
     "util": "^0.12.5"
   },
   "scripts": {
-    "dev": "parcel serve ./src/index.html",
+    "dev:front": "parcel serve ./src/index.html",
+    "dev:api": "nodemon --watch ./backend/index.ts --exec ts-node ./backend/index.ts",
     "test": "ava",
-    "build": "tsc ./backend/index.ts",
+    "build:be": "tsc ./backend/index.ts",
+    "build:fe": "parcel build ./src/index.html --dist-dir ./dist",
+    "build": "yarn build:be && yarn build:fe",
     "start": "node index.js"
   }
 }
