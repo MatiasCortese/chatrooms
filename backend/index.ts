@@ -140,4 +140,9 @@ app.post("/auth", (req, res) => {
         })
 });
 
+app.use(express.static("dist"));
+app.get("*", (req, res) => {
+    res.sendFile(__dirname + "/dist/index.html")
+});
+
 app.listen(port, () => console.log("conectado al puerto ", port));
