@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "target": "ES2017",
+        "target": "ESNext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
+        "skipLibCheck": true,
         "module": "CommonJS",
         "allowSyntheticDefaultImports": true,
     }
