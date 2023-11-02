@@ -1,7 +1,7 @@
 {
   "name": "rooms",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.html",
   "license": "MIT",
   "dependencies": {
     "@vaadin/router": "^1.7.5",
