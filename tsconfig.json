@@ -4,6 +4,6 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "skipLibCheck": true,
-        "module": "CommonJS"
+        "module": "ESNext",
     }
 }

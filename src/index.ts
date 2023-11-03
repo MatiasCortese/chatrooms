@@ -15,4 +15,6 @@ const app = firebase.initializeApp({
 
 (function(){
     router;
+    const err = new Error('Mensaje de error personalizado');
+    Error.captureStackTrace(err);
 })();

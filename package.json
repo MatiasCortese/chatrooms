@@ -1,15 +1,17 @@
 {
   "name": "rooms",
+  "type": "module",
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
-    "@vaadin/router": "^1.7.5",
-    "lodash": "^4.17.21",
+    "@vaadin/router": "1.7.4",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
+    "cosmiconfig": "8.2.0",
     "express": "^4.18.2",
     "firebase": "8.10.1",
     "firebase-admin": "11.10.1",
+    "lodash": "^4.17.21",
     "nanoid": "3.1.25",
     "parcel": "^2.9.3",
     "ts-node": "^10.9.1",
@@ -17,12 +19,15 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
     "@types/cors": "^2.8.14",
     "assert": "^2.1.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "events": "^3.3.0",
+    "htmlnano": "2.0.3",
     "https-browserify": "^1.0.0",
     "nodemon": "^3.0.1",
     "os-browserify": "^0.3.0",
@@ -34,13 +39,22 @@
     "url": "^0.11.3",
     "util": "^0.12.5"
   },
+  "parcelOptions": {
+    "sourceMaps": true,
+    "resolveExtensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
+  },
   "scripts": {
     "dev:front": "parcel serve ./src/index.html",
     "dev:api": "nodemon --watch ./backend/index.ts --exec ts-node ./backend/index.ts",
     "test": "ava",
-    "build:be": "tsc ./backend/index.ts",
-    "build:fe": "parcel build ./src/index.html --dist-dir ./dist",
+    "build:be": "tsc",
+    "build:fe": "parcel build ./src/index.html",
     "build": "yarn build:be && yarn build:fe",
-    "start": "node ./dist/index.js"
+    "start": "node ./src/index.js"
   }
 }
