@@ -41,6 +41,6 @@
     "build:be": "tsc",
     "build:fe": "parcel build ./src/index.html --dist-dir ./dist",
     "build": "yarn build:be && yarn build:fe",
-    "start": "node ./dist/index.js"
+    "start": "node ./src/index.js"
   }
 }
