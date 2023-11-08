@@ -4,7 +4,7 @@ import map from "lodash/map";
 const api: any = { url: ""};
 
 if (process.env.ENV == "development") {
-    api.url = "http://localhost:3000";
+    api.url = "http://localhost:3000/";
 } else if (process.env.ENV == "production") {
     api.url = process.env.BACKEND_URL
 }
@@ -38,7 +38,7 @@ const state = {
     addMessage(roomId, message){
         // const nombreDelState = this.data.nombre;
         var nombreDelState = sessionStorage.getItem("nombre");
-        fetch("http://localhost:3000/rooms/" + roomId + "/messages", {
+        fetch(api.url + "/rooms/" + roomId + "/messages", {
         method: "post",
         headers: {
             "content-type": "application/json",
@@ -88,7 +88,7 @@ const state = {
     enterRoom(id, nombre){
         const roomId = id.toString();
         var longRoomId;
-        fetch("http://localhost:3000/rooms/" + roomId,  {
+        fetch(api.url + "/" + roomId,  {
         method: "get",
         headers: {
             "content-type": "application/json",
