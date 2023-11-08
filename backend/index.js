@@ -1,40 +1,43 @@
-import * as express from "express";
-import { firestore, rtdb } from "./db";
-import * as cors from "cors";
-import { nanoid } from "nanoid";
-const app = express();
-const port = 3000;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = require("express");
+var db_1 = require("./db");
+var cors = require("cors");
+var nanoid_1 = require("nanoid");
+var process = require("process");
+var app = express();
+var port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
-const roomCollection = firestore.collection("rooms");
-const userCollection = firestore.collection("users");
-app.get("/hola", (req, res) => {
+var roomCollection = db_1.firestore.collection("rooms");
+var userCollection = db_1.firestore.collection("users");
+app.get("/hola", function (req, res) {
     res.json({
         message: "hola desde el server"
     });
 });
 // endpoint para crear un room y que nos devuelva su ID, 
-app.post("/rooms", (req, res) => {
-    const { userId } = req.body;
-    const { email } = req.body;
-    const { name } = req.body;
-    const { messages } = req.body;
-    const roomRef = rtdb.ref("rooms/" + nanoid());
+app.post("/rooms", function (req, res) {
+    var userId = req.body.userId;
+    var email = req.body.email;
+    var name = req.body.name;
+    var messages = req.body.messages;
+    var roomRef = db_1.rtdb.ref("rooms/" + (0, nanoid_1.nanoid)());
     roomRef
         .set({
         owner: email,
         name: name,
         messages: messages,
     })
-        .then(() => {
-        const longRoomId = roomRef.key;
-        const roomId = 1000 + Math.floor(Math.random() * 999);
+        .then(function () {
+        var longRoomId = roomRef.key;
+        var roomId = 1000 + Math.floor(Math.random() * 999);
         roomCollection
             .doc(roomId.toString())
             .set({
             rtdbRoomId: longRoomId,
         })
-            .then(() => {
+            .then(function () {
             res.json({
                 id: roomId.toString()
             });
@@ -42,31 +45,31 @@ app.post("/rooms", (req, res) => {
     });
 });
 // endpoint para crear un room y que nos devuelva su ID. esta API nos sirve para ver como funciona el ejemplo de Marce. Si queremos hacer funcionar nuestro chat, debemos activar la otra API que hace post a /rooms
-app.post("/rooms", (req, res) => {
-    const { userId } = req.body;
+app.post("/rooms", function (req, res) {
+    var userId = req.body.userId;
     // pasamos el id a string, hacemos el get y si el usuario existe, podemos crear un room
     userCollection
         .doc(userId.toString())
         .get()
-        .then(doc => {
+        .then(function (doc) {
         if (doc.exists) {
             //  creamos un room en rtdb
-            const roomRef = rtdb
-                .ref("rooms/" + nanoid());
-            roomRef
+            var roomRef_1 = db_1.rtdb
+                .ref("rooms/" + (0, nanoid_1.nanoid)());
+            roomRef_1
                 .set({
                 messages: [],
                 owner: userId,
             })
-                .then(() => {
-                const longRoomId = roomRef.key;
-                const roomId = 1000 + Math.floor(Math.random() * 999);
+                .then(function () {
+                var longRoomId = roomRef_1.key;
+                var roomId = 1000 + Math.floor(Math.random() * 999);
                 roomCollection
                     .doc(roomId.toString())
                     .set({
                     rtdbRoomId: longRoomId,
                 })
-                    .then(() => {
+                    .then(function () {
                     res.json({
                         id: roomId.toString()
                     });
@@ -81,41 +84,41 @@ app.post("/rooms", (req, res) => {
     });
 });
 // endpoint para ingresar a un room
-app.get("/rooms/:roomId", (req, res) => {
-    const { roomId } = req.params;
+app.get("/rooms/:roomId", function (req, res) {
+    var roomId = req.params.roomId;
     roomCollection
         .doc(roomId.toString())
         .get()
-        .then(snap => {
-        const data = snap.data();
+        .then(function (snap) {
+        var data = snap.data();
         res.json(data);
     });
 });
 // endpoint para enviar mensajes a un room
 // ver bien la vuelta del ID de rtdb y de firestore
 app.post("/rooms/:roomId/messages", function (req, res) {
-    const { roomId } = req.params;
-    const { message } = req.body;
+    var roomId = req.params.roomId;
+    var message = req.body.message;
     var longRoomId;
     roomCollection
         .doc(roomId.toString())
         .get()
-        .then(snap => {
+        .then(function (snap) {
         // Aca ya tenemos el longRoomId, ahora faltaria tirarle los mensajes (ver si el user va adentro de cada mensaje) a rtdb
-        const data = snap.data();
+        var data = snap.data();
         longRoomId = data.rtdbRoomId;
-        const roomRef = rtdb.ref("rooms/" + longRoomId + "/messages");
+        var roomRef = db_1.rtdb.ref("rooms/" + longRoomId + "/messages");
         roomRef.push(message);
         res.json(roomRef);
     });
 });
 // login
-app.post("/auth", (req, res) => {
-    const { email } = req.body;
+app.post("/auth", function (req, res) {
+    var email = req.body.email;
     userCollection
         .where("email", "==", email)
         .get()
-        .then((searchResponse) => {
+        .then(function (searchResponse) {
         if (searchResponse.empty) {
             res.status(404).json({
                 message: "user not found"
@@ -130,7 +133,7 @@ app.post("/auth", (req, res) => {
     });
 });
 app.use(express.static("dist"));
-app.get("*", (req, res) => {
-    res.sendFile(__dirname + "/dist/index.html");
+app.get("*", function (req, res) {
+    res.sendFile("./" + __dirname + "/dist/index.html");
 });
-app.listen(port, () => console.log("conectado al puerto ", port));
+app.listen(port, function () { return console.log("conectado al puerto ", port); });

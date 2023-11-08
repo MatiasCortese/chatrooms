@@ -3,13 +3,13 @@ import * as dotenv from "dotenv";
 import { firestore, rtdb } from "./db";
 import * as cors from "cors";
 import { nanoid } from "nanoid";
+import * as process from "process";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
-
 
 const roomCollection = firestore.collection("rooms");
 const userCollection = firestore.collection("users");
@@ -142,7 +142,7 @@ app.post("/auth", (req, res) => {
 
 app.use(express.static("dist"));
 app.get("*", (req, res) => {
-    res.sendFile(__dirname + "/dist/index.html")
+    res.sendFile("../" + __dirname + "/dist/index.html");
 });
 
 app.listen(port, () => console.log("conectado al puerto ", port));

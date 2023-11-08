@@ -589,6 +589,8 @@ const app = (0, _firebaseDefault.default).initializeApp({
 });
 (function() {
     0, _router.router;
+    const err = new Error("Mensaje de error personalizado");
+    Error.captureStackTrace(err);
 })();
 
 },{"./router":"4QFWt","firebase":"94EWt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/chat-box":"jfa4W","./components/button":"dZaQH","./components/header":"6hCU4"}],"4QFWt":[function(require,module,exports) {
@@ -607,6 +609,10 @@ router.setRoutes([
     {
         path: "/chat",
         component: "chat-page"
+    },
+    {
+        path: "(.*)",
+        redirect: "/"
     }
 ]);
 
@@ -827,7 +833,7 @@ function vaadinRouterGlobalPopstateHandler(event) {
 };
 /**
  * Expose `pathToRegexp`.
- */ var pathToRegexp_1 = pathToRegexp$1;
+ */ var pathToRegexp_1 = pathToRegexp;
 var parse_1 = parse;
 var compile_1 = compile;
 var tokensToFunction_1 = tokensToFunction;
@@ -1026,7 +1032,7 @@ var DEFAULT_DELIMITERS = "./";
  * @return {!RegExp}
  */ function arrayToRegexp(path, keys, options) {
     var parts = [];
-    for(var i = 0; i < path.length; i++)parts.push(pathToRegexp$1(path[i], keys, options).source);
+    for(var i = 0; i < path.length; i++)parts.push(pathToRegexp(path[i], keys, options).source);
     return new RegExp("(?:" + parts.join("|") + ")", flags(options));
 }
 /**
@@ -1091,7 +1097,7 @@ var DEFAULT_DELIMITERS = "./";
  * @param  {Array=}                keys
  * @param  {Object=}               options
  * @return {!RegExp}
- */ function pathToRegexp$1(path, keys, options) {
+ */ function pathToRegexp(path, keys, options) {
     if (path instanceof RegExp) return regexpToRegexp(path, keys);
     if (Array.isArray(path)) return arrayToRegexp(/** @type {!Array} */ path, keys, options);
     return stringToRegexp(/** @type {string} */ path, keys, options);
@@ -1108,9 +1114,9 @@ pathToRegexp_1.tokensToRegExp = tokensToRegExp_1;
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
  */ const { hasOwnProperty } = Object.prototype;
-const cache$1 = new Map();
+const cache = new Map();
 // see https://github.com/pillarjs/path-to-regexp/issues/148
-cache$1.set("|false", {
+cache.set("|false", {
     keys: [],
     pattern: /(?:)/
 });
@@ -1124,7 +1130,7 @@ function decodeParam(val) {
 function matchPath(routepath, path, exact, parentKeys, parentParams) {
     exact = !!exact;
     const cacheKey = `${routepath}|${exact}`;
-    let regexp = cache$1.get(cacheKey);
+    let regexp = cache.get(cacheKey);
     if (!regexp) {
         const keys = [];
         regexp = {
@@ -1134,7 +1140,7 @@ function matchPath(routepath, path, exact, parentKeys, parentParams) {
                 strict: routepath === ""
             })
         };
-        cache$1.set(cacheKey, regexp);
+        cache.set(cacheKey, regexp);
     }
     const m = regexp.pattern.exec(path);
     if (!m) return null;
@@ -1461,8 +1467,8 @@ Resolver.pathToRegexp = pathToRegexp_1;
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE.txt file in the root directory of this source tree.
- */ const { pathToRegexp } = Resolver;
-const cache = new Map();
+ */ const { pathToRegexp: pathToRegexp$1 } = Resolver;
+const cache$1 = new Map();
 function cacheRoutes(routesByName, route, routes) {
     const name = route.name || route.component;
     if (name) {
@@ -1498,7 +1504,7 @@ function generateUrls(router, options = {}) {
             route = getRouteByName(routesByName, routeName);
             if (!route) throw new Error(`Route "${routeName}" not found`);
         }
-        let regexp = cache.get(route.fullPath);
+        let regexp = cache$1.get(route.fullPath);
         if (!regexp) {
             let fullPath = getRoutePath(route);
             let rt = route.parent;
@@ -1507,15 +1513,15 @@ function generateUrls(router, options = {}) {
                 if (path) fullPath = path.replace(/\/$/, "") + "/" + fullPath.replace(/^\//, "");
                 rt = rt.parent;
             }
-            const tokens = pathToRegexp.parse(fullPath);
-            const toPath = pathToRegexp.tokensToFunction(tokens);
+            const tokens = pathToRegexp$1.parse(fullPath);
+            const toPath = pathToRegexp$1.tokensToFunction(tokens);
             const keys = Object.create(null);
             for(let i = 0; i < tokens.length; i++)if (!isString(tokens[i])) keys[tokens[i].name] = true;
             regexp = {
                 toPath,
                 keys
             };
-            cache.set(fullPath, regexp);
+            cache$1.set(fullPath, regexp);
             route.fullPath = fullPath;
         }
         let url = regexp.toPath(params, options) || "/";
@@ -2355,7 +2361,7 @@ function getMatchedPath(chain) {
         });
     }
 }
-const DEV_MODE_CODE_REGEXP = /\/\*[\*!]\s+vaadin-dev-mode:start([\s\S]*)vaadin-dev-mode:end\s+\*\*\//i;
+const DEV_MODE_CODE_REGEXP = /\/\*\*\s+vaadin-dev-mode:start([\s\S]*)vaadin-dev-mode:end\s+\*\*\//i;
 const FlowClients = window.Vaadin && window.Vaadin.Flow && window.Vaadin.Flow.clients;
 function isMinified() {
     function test() {
@@ -2870,7 +2876,7 @@ var UsageStatistics = function () {
   }], [{
     key: 'version',
     get: function get$1() {
-      return '2.1.2';
+      return '2.1.0';
     }
   }, {
     key: 'firstUseKey',

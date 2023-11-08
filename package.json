@@ -1,6 +1,6 @@
 {
   "name": "rooms",
-  "type": "module",
+  "type": "commonjs",
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
@@ -39,22 +39,13 @@
     "url": "^0.11.3",
     "util": "^0.12.5"
   },
-  "parcelOptions": {
-    "sourceMaps": true,
-    "resolveExtensions": [
-      ".js",
-      ".jsx",
-      ".ts",
-      ".tsx"
-    ]
-  },
   "scripts": {
     "dev:front": "parcel serve ./src/index.html",
     "dev:api": "nodemon --watch ./backend/index.ts --exec ts-node ./backend/index.ts",
     "test": "ava",
-    "build:be": "tsc",
+    "build:be": "tsc --resolveJsonModule --skipLibCheck ./backend/index.ts",
     "build:fe": "parcel build ./src/index.html",
-    "build": "yarn build:be && yarn build:fe",
-    "start": "node ./src/index.js"
+    "build": "yarn build:fe && yarn build:be",
+    "start": "node ./backend/index.js"
   }
 }
