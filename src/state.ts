@@ -1,6 +1,14 @@
 import firebase from "firebase"; 
 import map from "lodash/map";
 
+const api: any = { url: ""};
+
+if (process.env.ENV == "development") {
+    api.url = "http://localhost:3000";
+} else if (process.env.ENV == "production") {
+    api.url = process.env.BACKEND_URL
+}
+
 const state = {
     data: {
         roomId: "",
@@ -57,7 +65,7 @@ const state = {
         this.listeners.push(callback);
     },
     createRoom(userEmail, userName, messages) {
-        fetch("http://localhost:3000/rooms", {
+        fetch(api.url + "/rooms", {
         method: "post",
         headers: {
             "content-type": "application/json",
