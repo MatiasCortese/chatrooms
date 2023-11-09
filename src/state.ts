@@ -1,13 +1,7 @@
 import firebase from "firebase"; 
 import map from "lodash/map";
 
-const api: any = { url: ""};
-
-if (process.env.ENV == "development") {
-    api.url = "http://localhost:3000/";
-} else if (process.env.ENV == "production") {
-    api.url = process.env.BACKEND_URL
-}
+const API_BASE_URL = process.env.BACKEND_URL || "http://localhost:3000";
 
 const state = {
     data: {
@@ -38,7 +32,7 @@ const state = {
     addMessage(roomId, message){
         // const nombreDelState = this.data.nombre;
         var nombreDelState = sessionStorage.getItem("nombre");
-        fetch(api.url + "/rooms/" + roomId + "/messages", {
+        fetch(API_BASE_URL + "/rooms/" + roomId + "/messages", {
         method: "post",
         headers: {
             "content-type": "application/json",
@@ -65,7 +59,7 @@ const state = {
         this.listeners.push(callback);
     },
     createRoom(userEmail, userName, messages) {
-        fetch(api.url + "/rooms", {
+        fetch(API_BASE_URL + "/rooms", {
         method: "post",
         headers: {
             "content-type": "application/json",
@@ -88,7 +82,7 @@ const state = {
     enterRoom(id, nombre){
         const roomId = id.toString();
         var longRoomId;
-        fetch(api.url + "/" + roomId,  {
+        fetch(API_BASE_URL + "/rooms/" + roomId,  {
         method: "get",
         headers: {
             "content-type": "application/json",

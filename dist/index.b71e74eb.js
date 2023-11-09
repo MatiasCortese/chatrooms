@@ -3191,6 +3191,7 @@ var _firebase = require("firebase");
 var _firebaseDefault = parcelHelpers.interopDefault(_firebase);
 var _map = require("lodash/map");
 var _mapDefault = parcelHelpers.interopDefault(_map);
+const API_BASE_URL = "http://localhost:3000";
 const state = {
     data: {
         roomId: "",
@@ -3220,7 +3221,7 @@ const state = {
     addMessage (roomId, message) {
         // const nombreDelState = this.data.nombre;
         var nombreDelState = sessionStorage.getItem("nombre");
-        fetch("http://localhost:3000/rooms/" + roomId + "/messages", {
+        fetch(API_BASE_URL + "/rooms/" + roomId + "/messages", {
             method: "post",
             headers: {
                 "content-type": "application/json"
@@ -3245,7 +3246,7 @@ const state = {
         this.listeners.push(callback);
     },
     createRoom (userEmail, userName, messages) {
-        fetch("http://localhost:3000/rooms", {
+        fetch(API_BASE_URL + "/rooms", {
             method: "post",
             headers: {
                 "content-type": "application/json"
@@ -3266,7 +3267,7 @@ const state = {
     enterRoom (id, nombre) {
         const roomId = id.toString();
         var longRoomId;
-        fetch("http://localhost:3000/rooms/" + roomId, {
+        fetch(API_BASE_URL + "/rooms/" + roomId, {
             method: "get",
             headers: {
                 "content-type": "application/json"
