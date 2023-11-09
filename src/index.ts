@@ -12,9 +12,7 @@ const app = firebase.initializeApp({
     projectId: "apx-dwf-m6-e4d74"
 });
 
-
 (function(){
     router;
-    const err = new Error('Mensaje de error personalizado');
-    Error.captureStackTrace(err);
+    console.log(process.env.BACKEND_URL);
 })();
