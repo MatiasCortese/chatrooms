@@ -8,6 +8,8 @@ import * as process from "process";
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.static("dist"));
+
 app.use(express.json());
 app.use(cors());
 
@@ -140,7 +142,8 @@ app.post("/auth", (req, res) => {
         })
 });
 
-app.use(express.static("dist"));
+
+
 app.get("*", (req, res) => {
     res.sendFile("../" + __dirname + "/dist/index.html");
 });
