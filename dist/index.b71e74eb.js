@@ -589,8 +589,7 @@ const app = (0, _firebaseDefault.default).initializeApp({
 });
 (function() {
     0, _router.router;
-    const err = new Error("Mensaje de error personalizado");
-    Error.captureStackTrace(err);
+    console.log(undefined);
 })();
 
 },{"./router":"4QFWt","firebase":"94EWt","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/chat-box":"jfa4W","./components/button":"dZaQH","./components/header":"6hCU4"}],"4QFWt":[function(require,module,exports) {
