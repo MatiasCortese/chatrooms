@@ -59,7 +59,7 @@ const state = {
         this.listeners.push(callback);
     },
     createRoom(userEmail, userName, messages) {;
-        fetch(API_BASE_URL + "rooms", {
+        fetch(API_BASE_URL + "/rooms", {
         method: "post",
         headers: {
             "content-type": "application/json",
