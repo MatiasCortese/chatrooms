@@ -7,6 +7,7 @@ var nanoid_1 = require("nanoid");
 var process = require("process");
 var app = express();
 var port = process.env.PORT || 3000;
+app.use(express.static("dist"));
 app.use(express.json());
 app.use(cors());
 var roomCollection = db_1.firestore.collection("rooms");
@@ -132,8 +133,7 @@ app.post("/auth", function (req, res) {
         }
     });
 });
-app.use(express.static("dist"));
 app.get("*", function (req, res) {
-    res.sendFile("./" + __dirname + "/dist/index.html");
+    res.sendFile("../" + __dirname + "/dist/index.html");
 });
 app.listen(port, function () { return console.log("conectado al puerto ", port); });
