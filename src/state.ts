@@ -59,7 +59,7 @@ const state = {
         this.listeners.push(callback);
     },
     createRoom(userEmail, userName, messages) {
-        console.log("Entro al createRoom");
+        console.log(API_BASE_URL);
         fetch(API_BASE_URL + "/rooms/", {
         method: "post",
         headers: {
