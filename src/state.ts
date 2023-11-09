@@ -58,9 +58,8 @@ const state = {
     subscribe(callback: (any) => any) {
         this.listeners.push(callback);
     },
-    createRoom(userEmail, userName, messages) {
-        console.log(API_BASE_URL);
-        fetch(API_BASE_URL + "/rooms/", {
+    createRoom(userEmail, userName, messages) {;
+        fetch(API_BASE_URL + "/rooms", {
         method: "post",
         headers: {
             "content-type": "application/json",
