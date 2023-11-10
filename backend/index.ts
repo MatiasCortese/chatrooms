@@ -8,7 +8,6 @@ import * as process from "process";
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static("dist"));
 
 app.use(express.json());
 app.use(cors());
@@ -148,4 +147,5 @@ app.get("*", (req, res) => {
     res.sendFile("../" + __dirname + "/dist/index.html");
 });
 
+app.use(express.static("dist"));
 app.listen(port, () => console.log("conectado al puerto ", port));
