@@ -41,11 +41,11 @@
   },
   "scripts": {
     "dev:front": "parcel serve ./src/index.html",
-    "dev:api": "nodemon --watch ./backend/index.ts --exec ts-node ./backend/index.ts",
+    "dev:api": "nodemon --watch index.ts --exec ts-node index.ts",
     "test": "ava",
-    "build:be": "tsc --resolveJsonModule --skipLibCheck ./backend/index.ts",
+    "build:be": "tsc --resolveJsonModule --skipLibCheck index.ts",
     "build:fe": "parcel build ./src/index.html",
     "build": "yarn build:be && yarn build:fe",
-    "start": "node ./backend/index.js"
+    "start": "node ./index.js"
   }
 }
