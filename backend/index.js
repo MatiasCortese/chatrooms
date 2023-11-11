@@ -132,8 +132,8 @@ app.post("/auth", function (req, res) {
         }
     });
 });
-app.get("*", function (req, res) {
-    res.sendFile("../" + __dirname + "/dist/index.html");
-});
 app.use(express.static("dist"));
+app.get("*", function (req, res) {
+    res.sendFile(__dirname + "/../dist/index.html");
+});
 app.listen(port, function () { return console.log("conectado al puerto ", port); });

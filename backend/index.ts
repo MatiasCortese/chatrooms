@@ -141,11 +141,11 @@ app.post("/auth", (req, res) => {
         })
 });
 
-
-
+app.use(express.static("dist"));
 app.get("*", (req, res) => {
-    res.sendFile("../" + __dirname + "/dist/index.html");
+    res.sendFile(__dirname + "/../dist/index.html");
 });
 
-app.use(express.static("dist"));
+
+
 app.listen(port, () => console.log("conectado al puerto ", port));

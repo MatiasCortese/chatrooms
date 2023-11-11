@@ -1,6 +1,5 @@
 import firebase from "firebase";
 import {router} from "./router";
-import { state } from "./state";
 import "./components/chat-box";
 import "./components/button";
 import "./components/header";
@@ -14,5 +13,4 @@ const app = firebase.initializeApp({
 
 (function(){
     router;
-    console.log(process.env.BACKEND_URL);
 })();
