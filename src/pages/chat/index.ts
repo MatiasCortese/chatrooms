@@ -17,16 +17,14 @@ customElements.define("chat-page", class extends HTMLElement {
         });
     };
     functionsPack(){
-        setTimeout(() => {
-        const currentState = state.getState();
-        this.roomId = currentState.roomId;
-        this.username = currentState.nombre;
-        this.messages = currentState.messages;
-        this.render();
-        this.addStyle();
-        this.sendMessage();
-        this.whoIsWhoChecker();
-        }, 2100)
+            const currentState = state.getState();
+            this.roomId = currentState.roomId;
+            this.username = currentState.nombre;
+            this.messages = currentState.messages;
+            this.render();
+            this.addStyle();
+            this.sendMessage();
+            this.whoIsWhoChecker();
     };
     render(){
         this.innerHTML = `
@@ -35,7 +33,6 @@ customElements.define("chat-page", class extends HTMLElement {
                 <my-title>Chat</my-title>
                 <h3 class="roomdId">room id: ${this.roomId}</h3>
                 <div class="messages-container">
-                
                 ${this.messages.map((m) => {
                     return `<chat-box user="${m.nombre}" class="me">${m.message}</chat-box>`
                 }).join("")}

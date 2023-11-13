@@ -75,7 +75,6 @@ const state = {
         })
         .then(data => {
             // aca lo que parece ocurrir es que el cambio que hace al router de page, renderizando el chat ocurre ANTES de que vuelva el llamado a la API con la info.
-            console.log("Soy la data antes de invocar a enterRoom", data)
             this.enterRoom(data.id, userName);
         });
     },
@@ -104,7 +103,6 @@ const state = {
                 currentState.messages = dataFromRoom.messages;
                 currentState.messages = map(currentState.messages);
                 this.setState(currentState);
-                console.log("Finished setting state", currentState);
             });
         });
     }

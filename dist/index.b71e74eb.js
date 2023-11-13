@@ -61932,7 +61932,6 @@ const state = {
             return data.json();
         }).then((data)=>{
             // aca lo que parece ocurrir es que el cambio que hace al router de page, renderizando el chat ocurre ANTES de que vuelva el llamado a la API con la info.
-            console.log("Soy la data antes de invocar a enterRoom", data);
             this.enterRoom(data.id, userName);
         });
     },
@@ -61959,7 +61958,6 @@ const state = {
                 currentState.messages = dataFromRoom.messages;
                 currentState.messages = (0, _mapDefault.default)(currentState.messages);
                 this.setState(currentState);
-                console.log("Finished setting state", currentState);
             });
         });
     }
@@ -64431,16 +64429,14 @@ customElements.define("chat-page", class extends HTMLElement {
         });
     }
     functionsPack() {
-        setTimeout(()=>{
-            const currentState = (0, _state.state).getState();
-            this.roomId = currentState.roomId;
-            this.username = currentState.nombre;
-            this.messages = currentState.messages;
-            this.render();
-            this.addStyle();
-            this.sendMessage();
-            this.whoIsWhoChecker();
-        }, 2100);
+        const currentState = (0, _state.state).getState();
+        this.roomId = currentState.roomId;
+        this.username = currentState.nombre;
+        this.messages = currentState.messages;
+        this.render();
+        this.addStyle();
+        this.sendMessage();
+        this.whoIsWhoChecker();
     }
     render() {
         this.innerHTML = `
@@ -64449,7 +64445,6 @@ customElements.define("chat-page", class extends HTMLElement {
                 <my-title>Chat</my-title>
                 <h3 class="roomdId">room id: ${this.roomId}</h3>
                 <div class="messages-container">
-                
                 ${this.messages.map((m)=>{
             return `<chat-box user="${m.nombre}" class="me">${m.message}</chat-box>`;
         }).join("")}
